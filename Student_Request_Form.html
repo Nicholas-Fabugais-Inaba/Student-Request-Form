@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <style>
+            div.scroll{
+                margin:4px,4px;
+                padding:4px;
+                width:500px;
+                height:115px;
+                overflow-x: hidden;
+                overflow-y: auto;
+                text-align:justify;
+            }
+        </style>
+        <script language = "JavaScript">
+        function go_button()
+        {
+        var marks, course, cost, tcost, student_id, course_code, course_description, 
+        srequest_tarea, stars, scount, drange_tarea, smenu;
+        marks = parseInt(document.request_form.additional_marks.value);
+        course = parseInt(document.request_form.num_courses.value);
+        tcost = parseInt(document.request_form.total_cost.value);
+        student_id = parseInt(document.request_form.Id.value);
+        stars = "*";
+        smenu = document.request_form.select.value;
+        srequest_tarea = document.request_form.summary_requests.value;
+        drange_tarea = document.request_form.d_range.value;
+        if(course==0){
+            srequest_tarea += ("Student Id.:" + student_id + "\n");
+            if (smenu == "ftime_user") {
+                window.alert("Thanks for using E-Marks")
+            } else {
+                ;
+            }
+        } else {
+            ;
+        }
+        course_code = (document.request_form.course_num.value);
+        course_description = (document.request_form.description.value);
+        course += 1;
+        if(marks>=1 && marks<=4){
+            cost = marks*5;
+        }else if (marks>=5 && marks<=9){
+            cost = marks*10;
+        } else if (marks>9){
+            cost = marks*15;
+        } else {
+            window.alert("Invalid Mark Inputted");
+        } 
+        if(document.request_form.distance_education.checked){
+            cost += 50;
+            if (document.request_form.lack_work.checked) {
+                cost *= 1.2;
+                document.request_form.lack_work.checked=false;
+            } else if (document.request_form.some_compassion.checked) {
+                cost*= 1.05;
+                document.request_form.some_compassion.checked=false;
+            } else if(document.request_form.lack_work.checked&&document.request_form.some_compassion.checked){
+                cost*= 1.25;
+                document.request_form.lack_work.checked=false;
+                document.request_form.some_compassion.checked=false;
+            } else {
+                ;
+            } if (smenu == "f_fliers") {
+                cost = cost - (cost*0.25)
+            } else if (smenu == "buy_degree") {
+                cost = cost - (cost*0.5)
+            } else {
+                ;
+            }
+            tcost += cost;
+            if (tcost>250) {
+                window.alert("Request Denied-Clear and Reset");
+            } else {
+                scount = Math.floor(tcost/10);
+                document.request_form.num_courses.value = course;
+                document.request_form.total_cost.value = tcost;
+                srequest_tarea += (course + " " + course_code + " " + course_description + " " + marks + 
+                " " + "DE" + " "+ cost+ " " + tcost + "\n");
+                drange_tarea += (tcost + " " + stars.repeat(scount)+ "\n");
+                document.request_form.d_range.value = drange_tarea;
+                document.request_form.summary_requests.value = srequest_tarea;
+                document.request_form.distance_education.checked=false;
+            }
+        } else {
+            if (document.request_form.lack_work.checked) {
+                cost *= 1.2;
+                document.request_form.lack_work.checked=false;
+            } else if (document.request_form.some_compassion.checked) {
+                cost*= 1.05;
+                document.request_form.some_compassion.checked=false;
+            } else if(document.request_form.lack_work.checked&&document.request_form.some_compassion.checked){
+                cost*= 1.25;
+                document.request_form.lack_work.checked=false;
+                document.request_form.some_compassion.checked=false;
+            } else {
+                ;
+            } if (smenu == "f_fliers") {
+                cost = cost - (cost*0.25)
+            } else if (smenu == "buy_degree") {
+                cost = cost - (cost*0.5)
+            } else {
+                ;
+            }
+            tcost += cost;
+            if (tcost>250) {
+                window.alert("Request Denied-Clear and Reset");
+            } else {
+            scount = Math.floor(tcost/10);
+            document.request_form.num_courses.value = course;
+            document.request_form.total_cost.value = tcost;
+            srequest_tarea += (course + " " + course_code + " " + course_description + " " + marks + 
+            " " + cost+ " " + tcost+ "\n");
+            drange_tarea += (tcost + " " + stars.repeat(scount) + "\n");
+            document.request_form.d_range.value = drange_tarea;
+            document.request_form.summary_requests.value = srequest_tarea;
+            }
+        }
+        }
+        function clear_reset() 
+        {
+            document.getElementById("rform").reset();
+        }
+        </script>
+
+    </head>
+
+    <body>
+        
+            <form name = "request_form" id="rform">
+                <h2><b>The Request</b></h2>
+                <table border="1">
+                <tr><td>Id </td><td><input name = "Id" type = "text" size="2"></td></tr>
+                <tr><td>Course Number </td><td><input name = "course_num" type = "text" size="2"></td></tr>
+                <tr><td>Description </td><td><input name = "description" type = "text" size="5"></td></tr>
+                <tr><td>Distance Education</td><td> <center><input name = "distance_education" type = "checkbox"></center></td></tr>
+                <tr><td>Additional Marks</td><td> <input name = "additional_marks" type = "text" size="2"></td></tr>
+                </table><br>
+                Number of courses <input name = "num_courses" type = "text" size = "2" value="0">
+                Total Cost <input name = "total_cost" type = "text" size = "2" value="0"><br><br>
+
+                <font size ="+2"><b>Reasons: </b></font>
+                <input name = "doc_note" checked type = "radio"> Doctor Note
+                <input name = "lack_work" type = "radio"> Lack of Work
+                <input name = "some_compassion" type = "radio"> Some Compassion <br> <br>
+                <input type = "button" value = "Go for It" onclick="go_button()">
+                <input type = "button" value = "Clear and Reset" onclick="clear_reset()">
+                <select name = "select" id="select">
+                    <option value="ftime_user">First Time User</option>
+                    <option value="f_fliers">Frequent Fliers</option>
+                    <option value="buy_degree">Buying a Degree</option>
+                </select><br><br>
+                <font size ="+2"><b>Summary of Your Request(s)</b></font><br>
+                <div class="scroll">
+                <textarea name="summary_requests" rows = "7" cols = "80"></textarea>
+                </div>
+                <font size ="+2"><b>Danger Range</b></font><br>
+                <div class="scroll">
+                    <textarea name="d_range" rows = "7" cols = "80"></textarea>
+                </div>
+            </form>
+    </body>
+
+</html>
