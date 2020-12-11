@@ -50,73 +50,49 @@
         } 
         if(document.request_form.distance_education.checked){
             cost += 50;
-            if (document.request_form.lack_work.checked) {
-                cost *= 1.2;
-                document.request_form.lack_work.checked=false;
-            } else if (document.request_form.some_compassion.checked) {
-                cost*= 1.05;
-                document.request_form.some_compassion.checked=false;
-            } else if(document.request_form.lack_work.checked&&document.request_form.some_compassion.checked){
-                cost*= 1.25;
-                document.request_form.lack_work.checked=false;
-                document.request_form.some_compassion.checked=false;
-            } else {
-                ;
-            } if (smenu == "f_fliers") {
-                cost = cost - (cost*0.25)
-            } else if (smenu == "buy_degree") {
-                cost = cost - (cost*0.5)
-            } else {
-                ;
-            }
-            tcost += cost;
-            if (tcost>250) {
-                window.alert("Request Denied-Clear and Reset");
-            } else {
-                scount = Math.floor(tcost/10);
-                document.request_form.num_courses.value = course;
-                document.request_form.total_cost.value = tcost;
-                srequest_tarea += (course + " " + course_code + " " + course_description + " " + marks + 
-                " " + "DE" + " "+ cost+ " " + tcost + "\n");
-                drange_tarea += (tcost + " " + stars.repeat(scount)+ "\n");
-                document.request_form.d_range.value = drange_tarea;
-                document.request_form.summary_requests.value = srequest_tarea;
-                document.request_form.distance_education.checked=false;
-            }
         } else {
-            if (document.request_form.lack_work.checked) {
-                cost *= 1.2;
-                document.request_form.lack_work.checked=false;
-            } else if (document.request_form.some_compassion.checked) {
-                cost*= 1.05;
-                document.request_form.some_compassion.checked=false;
-            } else if(document.request_form.lack_work.checked&&document.request_form.some_compassion.checked){
-                cost*= 1.25;
-                document.request_form.lack_work.checked=false;
-                document.request_form.some_compassion.checked=false;
-            } else {
-                ;
-            } if (smenu == "f_fliers") {
-                cost = cost - (cost*0.25)
-            } else if (smenu == "buy_degree") {
-                cost = cost - (cost*0.5)
-            } else {
-                ;
-            }
-            tcost += cost;
-            if (tcost>250) {
-                window.alert("Request Denied-Clear and Reset");
-            } else {
+            ;
+        }
+        if (document.request_form.lack_work.checked) {
+            cost *= 1.2;
+            document.request_form.lack_work.checked=false;
+        } else if (document.request_form.some_compassion.checked) {
+            cost*= 1.05;
+            document.request_form.some_compassion.checked=false;
+        } else if(document.request_form.lack_work.checked&&document.request_form.some_compassion.checked){
+            cost*= 1.25;
+            document.request_form.lack_work.checked=false;
+            document.request_form.some_compassion.checked=false;
+        } else {
+            ;
+        } 
+        if (smenu == "f_fliers") {
+            cost = cost - (cost*0.25)
+        } else if (smenu == "buy_degree") {
+            cost = cost - (cost*0.5)
+        } else {
+            ;
+        }
+        tcost += cost;
+        if (tcost>250) {
+            window.alert("Request Denied-Clear and Reset");
+        } else {
             scount = Math.floor(tcost/10);
             document.request_form.num_courses.value = course;
             document.request_form.total_cost.value = tcost;
-            srequest_tarea += (course + " " + course_code + " " + course_description + " " + marks + 
-            " " + cost+ " " + tcost+ "\n");
-            drange_tarea += (tcost + " " + stars.repeat(scount) + "\n");
+            if(document.request_form.distance_education.checked){
+                srequest_tarea += (course + " " + course_code + " " + course_description + " " + marks + 
+                " " + "DE" + " "+ cost+ " " + tcost + "\n");
+            } else {
+                srequest_tarea += (course + " " + course_code + " " + course_description + " " + marks + 
+                " " + cost+ " " + tcost+ "\n");
+            }
+            drange_tarea += (tcost + " " + stars.repeat(scount)+ "\n");
             document.request_form.d_range.value = drange_tarea;
             document.request_form.summary_requests.value = srequest_tarea;
-            }
+            document.request_form.distance_education.checked=false;
         }
+        
         }
         function clear_reset() 
         {
